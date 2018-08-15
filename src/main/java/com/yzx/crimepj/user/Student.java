@@ -12,7 +12,7 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String cupSize;
+    private String name;
     private Integer age;
 
     public Student() {
@@ -26,12 +26,12 @@ public class Student {
         this.id = id;
     }
 
-    public String getCupSize() {
-        return cupSize;
+    public String getName() {
+        return name;
     }
 
-    public void setCupSize(String cupSize) {
-        this.cupSize = cupSize;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getAge() {

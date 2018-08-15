@@ -1,5 +1,6 @@
 package com.yzx.crimepj.user;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +27,14 @@ public class StudentController {
     }
 
     @PostMapping("delete")
-    public void delete(@RequestBody Student student) {
-        studentDao.delete(student);
+    public Boolean delete(@RequestBody Student student) {
+        try {
+            studentDao.delete(student);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @PostMapping("get")
