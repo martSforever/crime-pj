@@ -18,6 +18,18 @@ public class LawCase {
     private String evidence;                    //证据
     private String Description;                 //描述
 
+//==>case状态： submitted processing resolved closed； submitted unverified closed
+    private String status;
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+
+
     public Integer getId() {
         return id;
     }

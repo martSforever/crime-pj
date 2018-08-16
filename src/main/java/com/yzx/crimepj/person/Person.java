@@ -13,17 +13,17 @@ public class Person {
     private Integer id;                         //唯一标识符
     private String userName;                    //用户名
     private String password;                    //密码
-    private String nickName;                    //昵称
-    private String personType;                  //用户类型：用户、警察、管理员
-    private Boolean isVip;                       //是否为会员
-
-    public Boolean getVip() {
-        return isVip;
-    }
-
-    public void setVip(Boolean vip) {
-        isVip = vip;
-    }
+    private String email;                       //实名/匿名举报：显示/不显示邮箱
+    private String personType;                  //用户类型：user、LEA、admin
+//    private Boolean isVip;                    //是否为会员-->用户都需要注册，但是当选择实名举报时，提示需要登录，登陆后才可以功能 edit personal detail/view case progress
+//
+//    public Boolean getVip() {
+//        return isVip;
+//    }
+//
+//    public void setVip(Boolean vip) {
+//        isVip = vip;
+//    }
 
     public Integer getId() {
         return id;
@@ -49,12 +49,12 @@ public class Person {
         this.password = password;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPersonType() {
