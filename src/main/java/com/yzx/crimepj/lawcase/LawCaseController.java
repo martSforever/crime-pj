@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("lawCase")
@@ -16,23 +18,43 @@ public class LawCaseController {
     LawCaseDao lawCaseDao;
 
     @PostMapping("queryAll")
-    public List<LawCase> queryAll() {
-        return lawCaseDao.findAll();
+    public Map<String, Object> queryAll() {
+        Map<String, Object> ret = new HashMap<>();
+        try {
+            ret.put("result", lawCaseDao.findAll());
+            ret.put("success", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ret.put("success", false);
+            ret.put("message", e.getMessage());
+        }
+        return ret;
     }
 
     @PostMapping("upsert")
-    public LawCase queryAll(@RequestBody LawCase lawCase) {
-        return lawCaseDao.save(lawCase);
+    public Map<String, Object> queryAll(@RequestBody LawCase lawCase) {
+        Map<String, Object> ret = new HashMap<>();
+        try {
+            ret.put("result", lawCaseDao.save(lawCase));
+            ret.put("success", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ret.put("success", false);
+            ret.put("message", e.getMessage());
+        }
+        return ret;
     }
 
     @PostMapping("delete")
-    public Boolean delete(@RequestBody LawCase lawCase) {
+    public Map<String, Object> delete(@RequestBody LawCase lawCase) {
+        Map<String, Object> ret = new HashMap<>();
         try {
             lawCaseDao.delete(lawCase);
-            return true;
+            ret.put("success", true);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            ret.put("success", false);
         }
+        return ret;
     }
 }

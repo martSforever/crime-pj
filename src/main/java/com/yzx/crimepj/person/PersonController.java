@@ -18,24 +18,44 @@ public class PersonController {
     private PersonDao personDao;
 
     @PostMapping("queryAll")
-    public List<Person> queryAll() {
-        return personDao.findAll();
+    public Map<String, Object> queryAll() {
+        Map<String, Object> ret = new HashMap<>();
+        try {
+            ret.put("result", personDao.findAll());
+            ret.put("success", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ret.put("success", false);
+            ret.put("message", e.getMessage());
+        }
+        return ret;
     }
 
     @PostMapping("upsert")
-    public Person upsert(@RequestBody Person person) {
-        return personDao.save(person);
+    public Map<String, Object> upsert(@RequestBody Person person) {
+        Map<String, Object> ret = new HashMap<>();
+        try {
+            ret.put("result", personDao.save(person));
+            ret.put("success", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ret.put("success", false);
+            ret.put("message", e.getMessage());
+        }
+        return ret;
     }
 
     @PostMapping("delete")
-    public Boolean delete(@RequestBody Person person) {
+    public Map<String, Object> delete(@RequestBody Person person) {
+        Map<String, Object> ret = new HashMap<>();
         try {
             personDao.delete(person);
-            return true;
+            ret.put("success", true);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            ret.put("success", false);
         }
+        return ret;
     }
 
 
@@ -49,6 +69,28 @@ public class PersonController {
         } catch (Exception e) {
             e.printStackTrace();
             ret.put("success", false);
+            ret.put("result", null);
+        }
+        return ret;
+    }
+
+    @PostMapping("register")
+    public Map<String, Object> register(@RequestBody Person person) {
+        Map<String, Object> ret = new HashMap<>();
+        try {
+            Person userNamePerson = personDao.findByUserName(person.getUserName());
+            if (userNamePerson != null) {
+                ret.put("success", false);
+                ret.put("message", "username has been used!");
+            } else {
+                Person savePerson = personDao.save(person);
+                ret.put("success", savePerson != null);
+                ret.put("result", savePerson);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            ret.put("success", false);
+            ret.put("message", e.getMessage());
             ret.put("result", null);
         }
         return ret;
