@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: wsj         #启动的环境
+    active: yzx         #启动的环境
 
   jpa:
     hibernate:
